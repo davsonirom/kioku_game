@@ -1,8 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:kioku_game/Modo/modo.dart';
 import 'package:kioku_game/desing/desing.dart';
+import 'package:kioku_game/pages/recordes/recordes_page.dart';
 
-class Recordes extends StatelessWidget {
+class Recordes extends StatefulWidget {
   const Recordes({Key? key}) : super(key: key);
+
+  @override
+  State<Recordes> createState() => _RecordesState();
+}
+
+class _RecordesState extends State<Recordes> {
+  showRecordes(Modo modo) async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (BuildContext context) => RecordesPage(modo: modo),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,12 +44,8 @@ class Recordes extends StatelessWidget {
                   color: Desing.corBack,
                 ),
               ),
-              trailing: IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.chevron_right,
-                ),
-              ),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => showRecordes(Modo.normal),
             ),
             ListTile(
               title: const Text(
@@ -42,12 +54,10 @@ class Recordes extends StatelessWidget {
                   color: Desing.corBack,
                 ),
               ),
-              trailing: IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.chevron_right,
-                ),
+              trailing: const Icon(
+                Icons.chevron_right,
               ),
+              onTap: () => showRecordes(Modo.koekoe),
             ),
           ],
         ),

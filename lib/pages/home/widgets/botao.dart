@@ -18,7 +18,7 @@ class Botao extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20),
       child: OutlinedButton(
-        onPressed: acao(),
+        onPressed: () => acao(),
         style: Desing.outlineButtomStyle(cor: cor),
         child: Center(
           child: Text(

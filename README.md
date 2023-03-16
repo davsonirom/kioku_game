@@ -37,7 +37,7 @@ Após clonar o repositório não esquece do "flutter pub get" para baixar as pen
 ### Dependências
 | Pacote |  Sobre | Link |
 | ------ | ------ | ------ |
-| intl | Fornece facilidades de internacionalização e localização | https://pub.dev/packages/intl |
+| google_fonts: ^4.0.3 | Acesso as fontes do Google | https://pub.dev/packages/google_fonts |
 
 ### Compilação
 Para liberação em produção:

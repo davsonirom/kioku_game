@@ -30,15 +30,15 @@ class Desing {
   //? outilneButtom
   static ButtonStyle outlineButtomStyle({
     Color cor = corBack,
-    double padding = 24,
+    double padding = 15,
   }) {
     return OutlinedButton.styleFrom(
-      foregroundColor: color,
+      foregroundColor: cor,
       padding: EdgeInsets.symmetric(vertical: padding),
-      side: const BorderSide(color: color),
+      side: BorderSide(color: cor),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
-          Radius.circular(100),
+          Radius.circular(45),
         ),
       ),
     );

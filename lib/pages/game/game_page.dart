@@ -71,7 +71,7 @@ class GamePage extends StatelessWidget {
             nivel,
             (index) => CardGame(
               modo: modo,
-              opcao: Random().nextInt(33),
+              opcao: Random().nextInt(32),
             ),
           ),
         ),

@@ -38,7 +38,10 @@ class GameScore extends StatelessWidget {
           style: TextStyle(color: Desing.corPrimaria),
         ),
         TextButton(
-          onPressed: () => Navigator.pop(context),
+          onPressed: () {
+            controller.restarGame();
+            return Navigator.pop(context);
+          },
           child: const Text(
             'Sair',
             style: TextStyle(fontSize: 18),

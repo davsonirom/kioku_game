@@ -21,9 +21,6 @@ class FeedbackGame extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = context.read<GameController>();
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(''),
-      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 12),
         child: Column(

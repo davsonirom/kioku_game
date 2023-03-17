@@ -45,7 +45,7 @@ abstract class GameControllerBase with Store {
   }
 
   _resetScore() {
-    _gamePlay.modo == Modo.normal ? score = 0 : score * _gamePlay.nivel;
+    _gamePlay.modo == Modo.normal ? score = 0 : score = _gamePlay.nivel;
   }
 
   _generateCards() {

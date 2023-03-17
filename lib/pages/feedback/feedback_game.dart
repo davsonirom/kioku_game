@@ -1,8 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:kioku_game/controler/game_controller.dart';
 import 'package:kioku_game/desing/desing.dart';
 import 'package:kioku_game/pages/home/widgets/botao.dart';
 import 'package:kioku_game/resultado/resultado.dart';
+import 'package:provider/provider.dart';
 
 class FeedbackGame extends StatelessWidget {
   const FeedbackGame({
@@ -17,6 +19,7 @@ class FeedbackGame extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = context.read<GameController>();
     return Scaffold(
       appBar: AppBar(
         title: const Text(''),
@@ -40,7 +43,9 @@ class FeedbackGame extends StatelessWidget {
               cor: resultado == Resultado.aprovado
                   ? Desing.corBack
                   : Desing.corSecundaria,
-              acao: () => {},
+              acao: resultado == Resultado.aprovado
+                  ? () => controller.nextLevel()
+                  : () => controller.restarGame(),
             )
           ],
         ),

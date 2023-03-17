@@ -2,7 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:kioku_game/Modo/modo.dart';
 import 'package:kioku_game/desing/desing.dart';
+import 'package:kioku_game/model/game_play.dart';
 import 'package:kioku_game/pages/nivel/widgets/card_nivel.dart';
+import 'package:kioku_game/settings/game_settigs.dart';
 
 class NivelPage extends StatelessWidget {
   const NivelPage({
@@ -13,6 +15,9 @@ class NivelPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final niveis = GameSettigs.niveis
+        .map((n) => CardNivel(gamePlay: GamePlay(modo: modo, nivel: n)))
+        .toList();
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -29,17 +34,7 @@ class NivelPage extends StatelessWidget {
           mainAxisSpacing: 20,
           crossAxisSpacing: 20,
           padding: const EdgeInsets.all(24.0),
-          children: [
-            CardNivel(modo: modo, nivel: 6),
-            CardNivel(modo: modo, nivel: 8),
-            CardNivel(modo: modo, nivel: 10),
-            CardNivel(modo: modo, nivel: 12),
-            CardNivel(modo: modo, nivel: 16),
-            CardNivel(modo: modo, nivel: 20),
-            CardNivel(modo: modo, nivel: 24),
-            CardNivel(modo: modo, nivel: 28),
-            CardNivel(modo: modo, nivel: 30),
-          ],
+          children: niveis,
         ),
       ),
     );

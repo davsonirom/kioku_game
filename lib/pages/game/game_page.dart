@@ -1,80 +1,54 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:math';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
-import 'package:kioku_game/Modo/modo.dart';
-import 'package:kioku_game/desing/desing.dart';
+import 'package:kioku_game/controler/game_controller.dart';
+import 'package:kioku_game/model/game_opacao.dart';
+import 'package:kioku_game/model/game_play.dart';
+import 'package:kioku_game/pages/feedback/feedback_game.dart';
+import 'package:kioku_game/pages/game/widgets/game_score.dart';
+import 'package:kioku_game/resultado/resultado.dart';
+import 'package:kioku_game/settings/game_settigs.dart';
+import 'package:provider/provider.dart';
 
 import 'widgets/card_game.dart';
 
 class GamePage extends StatelessWidget {
-  const GamePage({
-    Key? key,
-    required this.modo,
-    required this.nivel,
-  }) : super(key: key);
-  final Modo modo;
-  final int nivel;
-
-  getAxisCount() {
-    if (nivel < 10) {
-      return 2;
-    } else if (nivel == 10 || nivel == 12 || nivel == 18) {
-      return 3;
-    } else {
-      return 4;
-    }
-  }
+  const GamePage({Key? key, required this.gamePlay}) : super(key: key);
+  final GamePlay gamePlay;
 
   @override
   Widget build(BuildContext context) {
+    final controller = Provider.of<GameController>(context);
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         centerTitle: true,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Icon(modo == Modo.normal
-                    ? Icons.my_location
-                    : Icons.touch_app_rounded),
-                const SizedBox(width: 10),
-                const Text('18', style: TextStyle(fontSize: 25)),
-              ],
-            ),
-            const Text(
-              'Kioku Game',
-              style: TextStyle(color: Desing.corPrimaria),
-            ),
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text(
-                'Sair',
-                style: TextStyle(fontSize: 18),
-              ),
-            ),
-          ],
-        ),
+        title: GameScore(modo: gamePlay.modo),
       ),
-      body: Center(
-        child: GridView.count(
-          crossAxisCount: getAxisCount(),
-          shrinkWrap: true,
-          mainAxisSpacing: 15,
-          crossAxisSpacing: 15,
-          padding: const EdgeInsets.all(24),
-          children: List.generate(
-            nivel,
-            (index) => CardGame(
-              modo: modo,
-              opcao: Random().nextInt(32),
-            ),
-          ),
-        ),
+      body: Observer(
+        builder: (_) {
+          if (controller.venceu) {
+            return const FeedbackGame(resultado: Resultado.aprovado);
+          } else if (controller.perdeu) {
+            return const FeedbackGame(resultado: Resultado.reprovado);
+          } else {
+            return Center(
+              child: GridView.count(
+                crossAxisCount: GameSettigs.gameBoardAxisCount(gamePlay.nivel),
+                shrinkWrap: true,
+                mainAxisSpacing: 15,
+                crossAxisSpacing: 15,
+                padding: const EdgeInsets.all(24),
+                children: controller.gameCards
+                    .map((GameOpacao go) => CardGame(
+                          modo: gamePlay.modo,
+                          gameOpacao: go,
+                        ))
+                    .toList(),
+              ),
+            );
+          }
+        },
       ),
     );
   }

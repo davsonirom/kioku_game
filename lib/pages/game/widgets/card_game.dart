@@ -5,16 +5,19 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 import 'package:kioku_game/Modo/modo.dart';
+import 'package:kioku_game/controler/game_controller.dart';
 import 'package:kioku_game/desing/desing.dart';
+import 'package:kioku_game/model/game_opacao.dart';
+import 'package:provider/provider.dart';
 
 class CardGame extends StatefulWidget {
   const CardGame({
     Key? key,
     required this.modo,
-    required this.opcao,
+    required this.gameOpacao,
   }) : super(key: key);
   final Modo modo;
-  final int opcao;
+  final GameOpacao gameOpacao;
 
   @override
   State<CardGame> createState() => _CardGameState();
@@ -38,15 +41,24 @@ class _CardGameState extends State<CardGame>
   }
 
   flipCard() {
-    if (!animation.isAnimating) {
+    final game = context.read<GameController>();
+
+    if (!animation.isAnimating &&
+        !widget.gameOpacao.matched &&
+        !widget.gameOpacao.selected &&
+        !game.jogadaCompleta) {
       animation.forward();
-      Timer(const Duration(seconds: 2), () => animation.reverse());
+      game.escolher(widget.gameOpacao, reseteCard);
     }
+  }
+
+  reseteCard() {
+    animation.reverse();
   }
 
   AssetImage getImage(double angulo) {
     if (angulo > 0.5 * pi) {
-      return AssetImage('assets/cartas/carta-${widget.opcao}.png');
+      return AssetImage('assets/cartas/carta-${widget.gameOpacao.opcao}.png');
     } else {
       return widget.modo == Modo.normal
           ? const AssetImage('assets/backgroudCarta.jpg')

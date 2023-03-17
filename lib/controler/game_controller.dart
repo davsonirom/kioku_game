@@ -1,6 +1,7 @@
 import 'package:kioku_game/Modo/modo.dart';
 import 'package:kioku_game/model/game_opacao.dart';
 import 'package:kioku_game/model/game_play.dart';
+import 'package:kioku_game/repository/recordes_repository.dart';
 import 'package:kioku_game/settings/game_settigs.dart';
 import 'package:mobx/mobx.dart';
 part 'game_controller.g.dart';
@@ -22,9 +23,16 @@ abstract class GameControllerBase with Store {
   List<Function> _escolhaCallBack = [];
   int _acertos = 0;
   int _numPares = 0;
+  RecordesRepository recordesRepository;
 
   @computed
   bool get jogadaCompleta => (_escolha.length == 2);
+
+  GameControllerBase({required this.recordesRepository}) {
+    reaction((_) => venceu == true, (bool ganhou) {
+      recordesRepository.updateRecordes(gamePlay: _gamePlay, score: score);
+    });
+  }
 
   startGame({required GamePlay gamePlay}) {
     _gamePlay = gamePlay;

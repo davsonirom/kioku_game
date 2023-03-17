@@ -41,7 +41,9 @@ Após clonar o repositório não esquece do "flutter pub get" para baixar as pen
 | provider: ^6.0.5 | wrapper para o InheritedWidget tornando-os mais fáceis de usar e reutilizáveis. | https://pub.dev/packages/provider |
 | flutter_mobx: ^2.0.6+5 | Provides the Observer widget that listens to observables and automatically rebuilds on changes. | https://pub.dev/packages/flutter_mobx |
 | build_runner: ^2.3.3 | provides a concrete way of generating files using Dart code, outside of tools like pub | https://pub.dev/packages/build_runner |
-| mobx_codegen: ^2.1.1| Adds support for annotating your MobX code with @observable, @computed, @action, making it super simple to use MobX. | https://pub.dev/packages/mobx_codegen |
+| mobx_codegen: ^2.1.1 | Adds support for annotating your MobX code with @observable, @computed, @action, making it super simple to use MobX. | https://pub.dev/packages/mobx_codegen |
+| hive_flutter: ^1.1.0 | Extension for hive please go there for documentation.  | https://pub.dev/packages/hive_flutter |
+| hive: ^2.2.3 | https://pub.dev/packages/hive  | https://pub.dev/packages/hive |
 
 ### Compilação
 Para liberação em produção:
